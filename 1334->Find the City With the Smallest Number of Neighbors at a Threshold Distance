@@ -1,0 +1,65 @@
+class Solution {
+public:
+    vector<int> dijkstras(int n, int source,
+                          unordered_map<int, list<pair<int, int>>>& edges,
+                          int maxdist) {
+        vector<int> distance(n, INT_MAX);
+        set<pair<int, int>> s;
+        distance[source] = 0;
+        s.insert({0, source});
+        while (!s.empty()) {
+            auto top = *(s.begin());
+            int nodeDistance = top.first;
+            int topNode = top.second;
+            s.erase(s.begin());
+
+            for (auto neighbour : edges[topNode]) {
+                if (nodeDistance + neighbour.second <
+                    distance[neighbour.first]) {
+                    auto record =
+                        s.find({distance[neighbour.first], neighbour.first});
+                    if (record != s.end()) {
+                        s.erase(record);
+                    }
+                    distance[neighbour.first] = nodeDistance + neighbour.second;
+                    s.insert({distance[neighbour.first], neighbour.first});
+                }
+            }
+        }
+        for (int i = 0; i < distance.size(); i++) {
+            if (distance[i] > maxdist) {
+                distance[i] = -1;
+            }
+        }
+        sort(distance.begin(), distance.end());
+        while (!distance.empty() && distance[0] == -1) {
+            distance.erase(distance.begin());
+        }
+        return distance;
+    }
+
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        vector<vector<int>> ans;
+        unordered_map<int, list<pair<int, int>>> adj;
+        for (int i = 0; i < edges.size(); i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            adj[u].push_back({v, w});
+            adj[v].push_back({u, w});
+        }
+        for (int i = 0; i < n; i++) {
+            vector<int> subans = dijkstras(n, i, adj, distanceThreshold);
+            ans.push_back(subans);
+        }
+        int size = INT_MAX;
+        int index = -1;
+        for (int i = 0; i < ans.size(); i++) {
+            if (ans[i].size() <= size) {
+                size = ans[i].size();
+                index = i;
+            }
+        }
+        return index;
+    }
+};
