@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int minAddToMakeValid(std::string s) {
+        stack<char> st;
+        for (auto op : s) {
+            if (op == '(') {
+                st.push(op);
+            } else if (op == ')' && !st.empty() && st.top() == '(') {
+                st.pop(); 
+            } else {
+                st.push(op); 
+            }
+        }
+        return st.size();
+    }
+};
