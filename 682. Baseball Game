@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int calPoints(vector<string>& operations) {
+        stack<int>st;
+        for(auto op:operations){
+            if(op =="+"){
+                int top = st.top();
+                st.pop();
+                int new_top = top + st.top();
+                st.push(top);
+                st.push(new_top);
+            }
+            else if(op=="D")
+            {
+                int sum=st.top()*2;
+                st.push(sum);
+            }
+            else if(op=="C"){
+                st.pop();
+            }
+            else{
+                  st.push(stoi(op));
+            }
+
+        }
+        int sum=0;
+        while(!st.empty()){
+            sum += st.top();
+            st.pop();
+        }
+        return sum;
+    }
+};
+
