@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int ans=0;
+        int l=0;
+        int n=height.size()-1;
+        int r=n;
+        int maxl=height[l];
+       int  maxr=height[r];
+        while(l<r){
+            if(maxl<maxr){
+                l++;
+                maxl=max(maxl,height[l]);
+                ans+=maxl-height[l];
+            }
+            else{
+                r--;
+                maxr=max(maxr,height[r]);
+                ans+=maxr-height[r];
+            }
+        }
+        return ans;
+    }
+};
