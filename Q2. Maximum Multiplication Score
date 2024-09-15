@@ -1,0 +1,49 @@
+#include <vector>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    long long maxScore(vector<int>& a, vector<int>& b) {
+        int n = b.size();
+        if (n < 4) return LLONG_MIN;  // Invalid case
+
+        // Arrays to store maximum values for different cases
+        vector<long long> max_i1(n, LLONG_MIN);
+        vector<long long> max_i2(n, LLONG_MIN);
+        vector<long long> max_i3(n, LLONG_MIN);
+
+        // Calculate max_i3
+        for (int i = n - 1; i >= 0; --i) {
+            max_i3[i] = (long long)a[3] * b[i];
+            if (i < n - 1) {
+                max_i3[i] = max(max_i3[i], max_i3[i + 1]);
+            }
+        }
+
+        // Calculate max_i2 based on max_i3
+        for (int i = n - 2; i >= 0; --i) {
+            max_i2[i] = (long long)a[2] * b[i] + max_i3[i + 1];
+            if (i < n - 1) {
+                max_i2[i] = max(max_i2[i], max_i2[i + 1]);
+            }
+        }
+
+        // Calculate max_i1 based on max_i2
+        for (int i = n - 3; i >= 0; --i) {
+            max_i1[i] = (long long)a[1] * b[i] + max_i2[i + 1];
+            if (i < n - 2) {
+                max_i1[i] = max(max_i1[i], max_i1[i + 1]);
+            }
+        }
+
+        // Calculate final result
+        long long result = LLONG_MIN;
+        for (int i = 0; i < n - 3; ++i) {
+            result = max(result, (long long)a[0] * b[i] + max_i1[i + 1]);
+        }
+
+        return result;
+    }
+};
