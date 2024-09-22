@@ -15,5 +15,6 @@ public:
           s.erase(remove(s.begin(), s.end(), ')'), s.end());
 
         return s;
+
     }
 };
