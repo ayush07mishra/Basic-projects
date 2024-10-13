@@ -16,4 +16,4 @@ public:
         dfs(root, true, res);
         return res;
     }
-};
+}
