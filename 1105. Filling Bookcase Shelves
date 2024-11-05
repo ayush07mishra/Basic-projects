@@ -17,7 +17,6 @@ public:
                 dp[i] = std::min(dp[i], dp[j-1] + max_height);
             }
         }
-        
         return dp[n];
     }
 }
