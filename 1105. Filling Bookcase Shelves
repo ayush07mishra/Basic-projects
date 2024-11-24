@@ -3,7 +3,7 @@ public:
     int minHeightShelves(std::vector<std::vector<int>>& books, int shelfWidth) {
         int n = books.size();
         std::vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;  
+        dp[0] = 0; 
     
         for (int i = 1; i <= n; ++i) {
             int total_width = 0;
