@@ -4,7 +4,6 @@ public:
         int n = books.size();
         std::vector<int> dp(n + 1, INT_MAX);
         dp[0] = 0;
-
         for (int i = 1; i <= n; ++i) {
             int total_width = 0;
             int max_height = 0;
