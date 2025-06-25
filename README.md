@@ -4,7 +4,6 @@
 This assignment demonstrates the seamless integration of Google OAuth 2.0 with Django Rest Framework (DRF), laying the foundation for a scalable and secure Order Management System. The implemented system accomplishes:
 
 OAuth 2.0 Authentication with secure access and refresh token handling using Google's APIs.
-
 RESTful API endpoints for data entry and retrieval, adhering to best practices in API development.
 
 Filtered data access based on parameters like title or user, allowing future extension into role-based or user-specific resource access.
