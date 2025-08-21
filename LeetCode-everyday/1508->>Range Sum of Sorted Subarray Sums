@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+         
+         int sum=0;  
+         vector<int> ans;
+         for(int i=0;i<nums.size();i++) 
+         { 
+            for(int j=i;j<nums.size();j++) 
+            { 
+                sum+=nums[j]; 
+                ans.push_back(sum);
+            } 
+            sum=0;
+         } 
+         sort(ans.begin(),ans.end()); 
+         sum=0; 
+         int mod=1000000007;
+         for(int i=left-1;i<=right-1;i++) 
+         { 
+            sum=(sum+ans[i])%mod;
+         } 
+         return sum;
+    }
+};

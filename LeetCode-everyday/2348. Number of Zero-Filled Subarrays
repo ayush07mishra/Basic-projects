@@ -1,0 +1,17 @@
+#include <vector>
+
+class Solution {
+public:
+    long long zeroFilledSubarray(std::vector<int>& nums) {
+        long long a = 0, b = 0;
+        for (int i : nums) {
+            if (i == 0) {
+                a += 1;
+                b += a;
+            } else {
+                a = 0;
+            }
+        }
+        return b;
+    }
+};

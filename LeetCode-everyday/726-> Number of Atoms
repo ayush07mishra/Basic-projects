@@ -1,0 +1,68 @@
+class Solution {
+public:
+    unordered_map<string,int> solve(string formula,int& i){
+        unordered_map<string,int>m;
+        // int i=ind;
+        while(i<formula.size() && formula[i]!=')'){
+            if(formula[i]=='('){
+                //NEW PATH
+                i++;
+                unordered_map<string,int>a = solve(formula,i);
+                for(auto& [s,c]:a){
+                    m[s]+=c;
+                }
+            }
+            else{
+                string ans;
+                ans+=formula[i];
+                i++;
+                while (i < formula.length() && islower(formula[i])) {
+                    ans += formula[i];
+                    i++;
+                }
+
+                string currCount;
+                while (i < formula.length() && isdigit(formula[i])) {
+                    currCount += formula[i];
+                    i++;
+                }
+
+                if (currCount.empty()) {
+                    m[ans] += 1;
+                } else {
+                    m[ans] += stoi(currCount);
+                }
+            }
+        }
+        i++;
+        string mul="";
+        while (i < formula.length() && isdigit(formula[i])) {
+            mul += formula[i];
+            i++;
+        }
+        if (!mul.empty()) {
+            int mult = stoi(mul);
+            for (auto& [atom, count] : m) {
+                m[atom] = count * mult;
+            }
+        }
+
+        return m;
+    }
+    string countOfAtoms(string formula) {
+        int i=0;
+        unordered_map<string,int> mp= solve(formula,i);
+        map<string, int> sortedMap(mp.begin(), mp.end());
+
+        // Generate the answer string
+        string ans;
+        for (auto& [atom, count] : sortedMap) {
+            ans += atom;
+            if (count > 1) {
+                ans += to_string(count);
+            }
+        }
+
+        return ans;
+    }
+};

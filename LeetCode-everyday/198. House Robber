@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==0)return 0;
+        int left=0;
+        int ans=0;
+        int right=0;
+        for(int i=0;i<nums.size();i++){
+            ans=max(nums[i]+right,left);
+            right=left;
+            left=ans;
+        }
+        return left;
+    }
+};

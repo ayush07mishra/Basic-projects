@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int buyChoco(vector<int>& prices, int money) {
+        // could go through and track the lowest and second lowest, or sort
+        // sort is higher time complexity, but probably fast enough for this task
+        sort(prices.begin(), prices.end());
+        int leftover = money - prices[0] - prices[1];
+        if(leftover >= 0) return leftover;
+        return money;
+    }
+};
